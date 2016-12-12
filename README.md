@@ -3,8 +3,8 @@
 Blinking Light Unit (BLU) for front of a Raspberry Pi that plugs into the
 upper right USB port and covers the whole USB area.  This is visual bling
 for a Pi cluster.  The idea is that cluster system software or user code
-displays some pattern on each Pi that collective give some useful feedback
-on system status or parallel program progress.
+displays some pattern on each Pi, so that collectively the displays give
+insight on system status or parallel program progress.
 
 This first prototype uses the
 [teensy 3.2](https://www.pjrc.com/store/teensy32.html)
