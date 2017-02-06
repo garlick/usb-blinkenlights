@@ -278,10 +278,12 @@ void test_leds ()
 
 int main()
 { 
-    usbBegin();
-    //PORTB |= _BV(PB0); // Pullup on button
-
+    clock_prescale_set(clock_div_1);
     test_leds ();
+
+    usbBegin();
+
+    //PORTB |= _BV(PB0); // Pullup on button
 
     while(1) {
         usbPoll();
