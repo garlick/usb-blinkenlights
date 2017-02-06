@@ -7,26 +7,7 @@
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
  */
 
-/*
-This file has been modified for use as a part of TrinketKeyboard
-
-Copyright (c) 2013 Adafruit Industries
-All rights reserved.
-
-TrinketKeyboard is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as
-published by the Free Software Foundation, either version 3 of
-the License, or (at your option) any later version.
-
-TrinketKeyboard is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public
-License along with TrinketKeyboard. If not, see
-<http://www.gnu.org/licenses/>.
-*/
+/* modified for usb-blinkenlights */
 
 #ifndef __usbconfig_h_included__
 #define __usbconfig_h_included__
@@ -253,8 +234,8 @@ extern void calibrateOscillator(void);
 #define USB_CFG_DEVICE_VERSION  0x00, 0x01
 /* Version number of the device: Minor number first, then major number.
  */
-#define USB_CFG_VENDOR_NAME     'A', 'd', 'a', 'f', 'r', 'u', 'i', 't'
-#define USB_CFG_VENDOR_NAME_LEN 8
+#define USB_CFG_VENDOR_NAME     'W', 'o', 'r', 'l', 'i', 'c', 'k', 'W', 'e', 'r', 'x'
+#define USB_CFG_VENDOR_NAME_LEN 11
 /* These two values define the vendor name returned by the USB device. The name
  * must be given as a list of characters under single quotes. The characters
  * are interpreted as Unicode (UTF-16) entities.
@@ -263,8 +244,8 @@ extern void calibrateOscillator(void);
  * obdev's free shared VID/PID pair. See the file USB-IDs-for-free.txt for
  * details.
  */
-#define USB_CFG_DEVICE_NAME     'T', 'r', 'i', 'n', 'k', 'e', 't', ' ', 'K', 'e', 'y', 'b', 'o', 'a', 'r', 'd',
-#define USB_CFG_DEVICE_NAME_LEN 16
+#define USB_CFG_DEVICE_NAME     'B', 'l', 'i', 'n', 'k', 'e', 'n', 'l', 'i', 'g', 'h', 't', 's'
+#define USB_CFG_DEVICE_NAME_LEN 13
 /* Same as above for the device name. If you don't want a device name, undefine
  * the macros. See the file USB-IDs-for-free.txt before you assign a name if
  * you use a shared VID/PID.
