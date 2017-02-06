@@ -213,26 +213,6 @@ both regions.
 */
 #endif
 
-// Here begins the "main" code replacing Arduino bootstrap, TrinketKeyboard
-// wrapper class, and other useless things. :) --Joonas
-
-#define KEYCODE_MOD_LEFT_SHIFT        0x02
-#define KEYCODE_A        			0x04
-
-// construct a keyboard report, follow the standard format as described
-// this format is compatible with "boot protocol"
-void pressKey(uint8_t modifiers, uint8_t keycode1) {
-        report_buffer[0] = modifiers;
-        report_buffer[1] = 0; // reserved
-        report_buffer[2] = keycode1;
-        report_buffer[3] = 0; //keycode2;
-        report_buffer[4] = 0; //keycode3;
-        report_buffer[5] = 0; //keycode4;
-        report_buffer[6] = 0; //keycode5;
-        report_buffer[7] = 0; //keycode6;
-        usbReportSend();
-}
-
 #define NUMLEDS 7
 
 struct cRGB led[NUMLEDS];
@@ -283,15 +263,8 @@ int main()
 
     usbBegin();
 
-    //PORTB |= _BV(PB0); // Pullup on button
-
     while(1) {
         usbPoll();
-
-        //if(!(PINB & _BV(PB0))) { // button pressed
-        //    pressKey(KEYCODE_MOD_LEFT_SHIFT, KEYCODE_A); // press
-        //    pressKey(0, 0); // release
-        //}
     }
 
     return 0;
