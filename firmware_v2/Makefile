@@ -7,7 +7,8 @@ OBJFLAGS = -j .text -j .data -O ihex
 DUDEFLAGS = -p trinket -c usbtiny -v
 
 OBJECTS = \
-	main.o osc_calibrate.o \
+	main.o \
+	libs-device/osccal.o \
 	usbdrv/usbdrv.o usbdrv/usbdrvasm.o \
 	Light_WS2812/light_ws2812.o
 
