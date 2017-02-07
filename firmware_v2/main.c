@@ -36,7 +36,7 @@ void usbBegin (void)
 usbMsgLen_t usbFunctionSetup (uint8_t data[8])
 {
     usbRequest_t *rq = (void *)data;
-    static uchar    replyBuf[2];
+    static uchar replyBuf[2];
     int i, len;
 
     usbMsgPtr = (unsigned short) replyBuf;
@@ -55,6 +55,9 @@ usbMsgLen_t usbFunctionSetup (uint8_t data[8])
                         rq->wValue.bytes[1],  // g
                         rq->wValue.bytes[0]); // b
             break;
+        case 3: // get LED count
+            replyBuf[0] = led_count ();
+            return 1;
     }
     return 0;
 }

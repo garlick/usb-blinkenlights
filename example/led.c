@@ -13,7 +13,7 @@ void usage (void)
     fprintf (stderr, 
 "Usage: led selftest\n"
 "           clear\n"
-"           set [0-6]=r:g:b (r, g, b are intensity values 0-255\n");
+"           set N=r:g:b (r, g, b are intensity values 0-255\n");
 }
 
 int main (int argc, char **argv)
@@ -66,8 +66,8 @@ int main (int argc, char **argv)
             usage ();
             exit (1);
         }
-        if (index < 0 || index > 6
-                || r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b> 255) {
+        if (index < 0 || index > 255
+                || r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
             usage ();
             exit (1);
         }
@@ -82,6 +82,21 @@ int main (int argc, char **argv)
             fprintf (stderr, "USB error: %s\n", usb_strerror ());
             exit (1);
         }
+    } else if (!strcmp (argv[1], "count")) {
+        nBytes = usb_control_msg (handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE |
+                                          USB_ENDPOINT_IN,
+                                          3, 0, 0,
+                                          (char *)buffer, sizeof (buffer),
+                                          5000);
+        if (nBytes < 0) {
+            fprintf (stderr, "USB error: %s\n", usb_strerror ());
+            exit (1);
+        }
+        if (nBytes < 1) {
+            fprintf (stderr, "wrong size response\n");
+            exit (1);
+        }
+        printf ("%d\n", buffer[0]);
     } else {
         usage ();
         exit (1);
