@@ -15,6 +15,8 @@
 #define NUMLEDS 7
 
 static struct cRGB led[NUMLEDS];
+static int led_selftest_run = 0;
+static int led_update_needed = 0;
 
 void test_leds (void);
 void clear_leds (void);
@@ -42,17 +44,27 @@ usbMsgLen_t usbFunctionSetup (uint8_t data[8])
 {
     usbRequest_t *rq = (void *)data;
     static uchar    replyBuf[2];
+    int i;
 
     usbMsgPtr = (unsigned short) replyBuf;
     switch (rq->bRequest) {
         case 0: // re-execute self-test
+            led_selftest_run = 1;
+            break;
+        case 1: // clear all LEDs
+            clear_leds ();
+            led_update_needed = 1;
+            break;
+        case 2: // address single LED
+            i = rq->wIndex.bytes[1];
+            if (i >= 0 && i < NUMLEDS) {
+                led[i].r = rq->wIndex.bytes[0];
+                led[i].g = rq->wValue.bytes[1];
+                led[i].b = rq->wValue.bytes[0];
+                led_update_needed = 1;
+            }
             break;
     }
-    return 0;
-}
-
-uchar usbFunctionWrite(uchar *data, uchar len)
-{
     return 0;
 }
 
@@ -64,8 +76,6 @@ void clear_leds (void)
         led[i].g=0;
         led[i].b=0;
     }
-    ws2812_setleds(led,NUMLEDS);
-    _delay_ms(100);
 }
 
 /* Dislpay test pattern on LEDs.
@@ -79,22 +89,23 @@ void test_leds (void)
     clear_leds ();
     for (i = 0; i < NUMLEDS; i++) {
         led[i].r=b;
-        ws2812_setleds(led,NUMLEDS);
+        ws2812_setleds(led, NUMLEDS);
         _delay_ms(t);
     }
     clear_leds ();
     for (i = 0; i < NUMLEDS; i++) {
         led[i].g=b;
-        ws2812_setleds(led,NUMLEDS);
+        ws2812_setleds(led, NUMLEDS);
         _delay_ms(t);
     }
     clear_leds ();
     for (i = 0; i < NUMLEDS; i++) {
         led[i].b=b;
-        ws2812_setleds(led,NUMLEDS);
+        ws2812_setleds(led, NUMLEDS);
         _delay_ms(t);
     }
     clear_leds ();
+    ws2812_setleds(led, NUMLEDS);
 }
 
 int main (int argc, char **argv)
@@ -106,6 +117,16 @@ int main (int argc, char **argv)
 
     while(1) {
         usbPoll();
+
+        if (led_selftest_run) {
+            test_leds ();
+            led_selftest_run = 0;
+        }
+
+        if (led_update_needed) {
+            ws2812_setleds (led, NUMLEDS);
+            led_update_needed = 0;
+        }
     }
 
     return 0;
