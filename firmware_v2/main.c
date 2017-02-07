@@ -6,6 +6,7 @@
 
 #include <avr/power.h>
 #include <util/delay.h>
+#include <avr/wdt.h>
 
 #include "usbconfig.h"
 #include "usbdrv/usbdrv.h"
@@ -82,7 +83,7 @@ void clear_leds (void)
  */
 void test_leds (void)
 {
-    const int t = 200;
+    const int t = 50;
     const int b = 10;
     int i;
 
@@ -109,13 +110,15 @@ void test_leds (void)
 }
 
 int main (int argc, char **argv)
-{ 
+{
     clock_prescale_set(clock_div_1);
     test_leds ();
 
+    wdt_enable (WDTO_1S);
     usbBegin();
 
     while(1) {
+        wdt_reset ();
         usbPoll();
 
         if (led_selftest_run) {
