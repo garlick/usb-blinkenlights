@@ -2,12 +2,12 @@ CC = avr-gcc
 OBJCOPY = avr-objcopy
 DUDE = sudo avrdude
 
-CFLAGS = -Wall -Os -Iusbdrv -I. -mmcu=attiny45 -DF_CPU=16500000
+CFLAGS = -Wall -Os -Iusbdrv -I. -mmcu=attiny45 -DF_CPU=16500000 -std=gnu99
 OBJFLAGS = -j .text -j .data -O ihex
 DUDEFLAGS = -p trinket -c usbtiny -v
 
 OBJECTS = \
-	main.o \
+	main.o millis.o \
 	libs-device/osccal.o \
 	usbdrv/usbdrv.o usbdrv/usbdrvasm.o \
 	Light_WS2812/light_ws2812.o
