@@ -6,7 +6,10 @@ CFLAGS = -Wall -Os -Iusbdrv -I. -mmcu=attiny45 -DF_CPU=16500000
 OBJFLAGS = -j .text -j .data -O ihex
 DUDEFLAGS = -p trinket -c usbtiny -v
 
-OBJECTS = main.o usbdrv/usbdrv.o usbdrv/usbdrvasm.o Light_WS2812/light_ws2812.o
+OBJECTS = \
+	main.o osc_calibrate.o \
+	usbdrv/usbdrv.o usbdrv/usbdrvasm.o \
+	Light_WS2812/light_ws2812.o
 
 all: main.hex
 
