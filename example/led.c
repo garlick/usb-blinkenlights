@@ -38,7 +38,7 @@ int main (int argc, char **argv)
 
     if (!strcmp (argv[1], "selftest")) {
         nBytes = usb_control_msg (handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE |
-                                          USB_ENDPOINT_IN,
+                                          USB_ENDPOINT_OUT,
                                           0, 0, 0,
                                           (char *)buffer, sizeof (buffer),
                                           5000);
@@ -48,7 +48,7 @@ int main (int argc, char **argv)
         }
     } else if (!strcmp (argv[1], "clear")) {
         nBytes = usb_control_msg (handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE |
-                                          USB_ENDPOINT_IN,
+                                          USB_ENDPOINT_OUT,
                                           1, 0, 0,
                                           (char *)buffer, sizeof (buffer),
                                           5000);
@@ -74,7 +74,7 @@ int main (int argc, char **argv)
         index = index << 8 | r;
         value = g << 8 | b;
         nBytes = usb_control_msg (handle, USB_TYPE_VENDOR | USB_RECIP_DEVICE |
-                                          USB_ENDPOINT_IN,
+                                          USB_ENDPOINT_OUT,
                                           2, value, index,
                                           (char *)buffer, sizeof (buffer),
                                           5000);
