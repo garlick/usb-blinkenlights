@@ -6,16 +6,7 @@ for a Pi cluster.  Cluster system software or user code displays some
 pattern on each Pi, so that collectively the displays give insight on
 system status or parallel program progress.
 
-This first prototype uses the
-[teensy 3.2](https://www.pjrc.com/store/teensy32.html)
-and an [Avago HDSP-703E](https://www.broadcom.com/products/leds-and-displays/dot-matrix-leds-and-displays/hdsp-703e)
-5x7 LED matrix driven by a
-[MAX 7219](https://www.maximintegrated.com/en/products/power/display-power-control/MAX7219.html).  The project is powered by USB and is updated using raw
-USB HID protocol.  The teensy is sandwiched between a board with the
-display, and a board with the USB connector and display driver.
-
-![Image of v1 prototype](https://github.com/garlick/usb-blinkenlights/blob/master/doc/v1.png)
-
-The goal of the next version will be to get it all on one board and
-reduce cost, replacing the teensy with something like the [ATtiny85](http://www.atmel.com/devices/attiny85.aspx) with [V-USB](https://www.obdev.at/products/vusb/index.html).
-
+First prototype used 5x7 monochrome LED matrix and a teensy 3.2
+(overkill for sure).  This worked but the hardware has now been retired,
+and a second prototype based on ATTiny85 and 7 WS-2812 addressable
+LED's is in progress.
