@@ -31,6 +31,13 @@ uint32_t millis (void)
     return ret;
 }
 
+uint32_t millis_since (uint32_t t)
+{
+    uint32_t now = millis ();
+    return (now < t ? (0xffffffff - t + now)
+                    : (now - t));
+}
+
 /*
  * vi:tabstop=4 shiftwidth=4 expandtab
  */
